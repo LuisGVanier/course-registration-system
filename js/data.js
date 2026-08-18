@@ -1,7 +1,7 @@
 (function () {
   const STORAGE_KEY = 'crs_db_v1';
   const SESSION_KEY = 'crs_session_v1';
-  const DEMO_PASSWORD_HASH = 'aa5638cc61c182c23d05167c419a27ee4781b5efeb1e80dfc04b6c47b5ecf766';
+  const DEMO_PASSWORD_HASH = 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f';
 
   let db = null;
 

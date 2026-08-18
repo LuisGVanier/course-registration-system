@@ -19,6 +19,37 @@
     });
   });
 
+  const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+
+  function findSection(sectionId) {
+    for (const course of CRS.getCourseCatalog()) {
+      const section = course.sections.find(s => s.sectionId === sectionId);
+      if (section) return { course, section };
+    }
+    return null;
+  }
+
+  function showConfirmation(student, enrollment) {
+    const match = findSection(enrollment.sectionId);
+    const reference = `ENR-${String(enrollment.enrollmentId).padStart(5, '0')}`;
+
+    document.getElementById('confirmBody').innerHTML = `
+      <p>Welcome, <strong>${student.firstName} ${student.lastName}</strong>. Your account is ready
+      and you are enrolled in:</p>
+      <div class="card p-3 mb-3">
+        <p class="mb-1"><span class="course-code">${match.course.courseCode}</span>
+          <strong>${match.course.courseName}</strong></p>
+        <p class="text-muted small mb-1">
+          ${match.section.semester} ${match.section.year} ·
+          ${match.section.schedule} · Room ${match.section.room}</p>
+        <p class="text-muted small mb-0">Instructor: ${match.section.instructor}</p>
+      </div>
+      <p class="text-muted small mb-0">Confirmation number: <strong>${reference}</strong> ·
+      a copy has been sent to ${student.email}.</p>`;
+
+    confirmModal.show();
+  }
+
   function checkPasswordsMatch() {
     if (confirmInput.value && confirmInput.value !== passwordInput.value) {
       confirmInput.setCustomValidity('Passwords must match.');
@@ -50,9 +81,13 @@
 
     try {
       const { student } = await CRS.registerUser({ firstName, lastName, email, phone, username, password });
-      CRS.sp_EnrollStudent(student.studentId, sectionId, new Date().toISOString().slice(0, 10), 'Active');
+      const enrollment = CRS.sp_EnrollStudent(student.studentId, sectionId, new Date().toISOString().slice(0, 10), 'Active');
       await CRS.loginUser(username, password);
-      window.location.href = 'enrollment-confirmation.html';
+
+      showConfirmation(student, enrollment);
+      form.reset();
+      form.classList.remove('was-validated');
+      CRSNav.render();
     } catch (err) {
       errorBox.textContent = err.message;
       errorBox.classList.remove('d-none');

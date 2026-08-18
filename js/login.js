@@ -18,6 +18,6 @@
       return;
     }
 
-    window.location.href = 'student-profile.html';
+    window.location.href = user.role === 'admin' ? 'admin-dashboard.html' : 'student-profile.html';
   });
 })();

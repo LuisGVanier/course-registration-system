@@ -90,3 +90,23 @@ a:hover { color: var(--color-brand-dark); }
 .badge-status-completed { background-color: var(--color-brand); }
 .badge-status-active { background-color: var(--color-accent); }
 .badge-status-failed { background-color: var(--color-danger); }
+.nav-link.active {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+}
+
+.nav-user {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.875rem;
+  padding: 0.5rem;
+}
+
+.nav-tabs .nav-link {
+  color: var(--color-muted) !important;
+}
+.nav-tabs .nav-link.active {
+  color: var(--color-brand) !important;
+  border-bottom-color: var(--color-surface);
+}
+
+.badge-status-dropped { background-color: var(--color-muted); }
