@@ -24,8 +24,7 @@ hashed with SHA-256 and never stored as plain text.
 
 ## Demo accounts
 
-Most of seeded accounts use the password `password123`. We've also made some tests with `Abc12345`
-
+All seeded accounts use the password `password123`.
 | Username | Role |
 |---|---|
 | `admin` | Administrator |
@@ -69,4 +68,10 @@ requirement tracking, and server-side authentication.
 
 ## Authors
 
-Luis Gerardo Molina Guillen and Fatemeh Damghani, Software Development: Secure Desktop, Mobile And Web Applications ACS/AEC LEA.8F_26W_1232 program, Summer 2026, Vanier College. Developed with Agile methodology using a Trello board and weekly sprint reports.
+Luis Gerardo Molina Guillen and Fatemeh Damghani
+
+Software Development: Secure Desktop, Mobile and Web Applications (ACS/AEC LEA.8F)
+Vanier College, Summer 2026
+Course section LEA.8F_26W_1232
+
+Developed following Agile methodology with weekly sprints.
