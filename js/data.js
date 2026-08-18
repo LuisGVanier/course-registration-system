@@ -102,7 +102,7 @@
       const instr = db.instructors.find(x => x.instructorId === sec.instructorId);
       const dept = db.departments.find(x => x.departmentId === c.departmentId);
       return {
-        enrollmentId: e.enrollmentId, studentId: st.studentId, studentName: `${st.firstName} ${st.lastName}`, studentEmail: st.email,
+        enrollmentId: e.enrollmentId, sectionId: e.sectionId, studentId: st.studentId, studentName: `${st.firstName} ${st.lastName}`, studentEmail: st.email,
         courseCode: c.courseCode, courseName: c.courseName, credits: c.credits,
         semester: sec.semester, year: sec.year, schedule: sec.schedule, room: sec.room,
         instructorName: `${instr.firstName} ${instr.lastName}`, departmentName: dept.departmentName,
@@ -161,6 +161,12 @@
   function sp_EnrollStudent(studentId, sectionId, enrollmentDate, status) {
     const section = db.sections.find(s => s.sectionId === sectionId);
     if (!section) throw new Error('Section not found.');
+
+        const alreadyEnrolled = db.enrollments.some(e =>
+      e.studentId === studentId && e.sectionId === sectionId && e.status !== 'Dropped');
+    if (alreadyEnrolled) {
+      throw new Error('You are already enrolled in this section.');
+    }
 
     const activeCount = db.enrollments.filter(e => e.sectionId === sectionId && e.status !== 'Dropped').length;
     if (activeCount >= section.capacity) {

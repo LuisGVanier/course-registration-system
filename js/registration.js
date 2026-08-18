@@ -29,11 +29,25 @@
     return null;
   }
 
-  function showConfirmation(student, enrollment) {
+    function showConfirmation(student, enrollment, enrollmentError) {
+    const body = document.getElementById('confirmBody');
+
+    if (!enrollment) {
+      body.innerHTML = `
+        <p>Welcome, <strong>${student.firstName} ${student.lastName}</strong>. Your account has been
+        created and you are signed in.</p>
+        <div class="alert alert-warning mb-0">
+          We could not enroll you in that section: ${enrollmentError}
+          Open the catalog to choose another course.
+        </div>`;
+      confirmModal.show();
+      return;
+    }
+
     const match = findSection(enrollment.sectionId);
     const reference = `ENR-${String(enrollment.enrollmentId).padStart(5, '0')}`;
 
-    document.getElementById('confirmBody').innerHTML = `
+        body.innerHTML = `
       <p>Welcome, <strong>${student.firstName} ${student.lastName}</strong>. Your account is ready
       and you are enrolled in:</p>
       <div class="card p-3 mb-3">
@@ -80,11 +94,18 @@
     const sectionId = Number(sectionSelect.value);
 
     try {
-      const { student } = await CRS.registerUser({ firstName, lastName, email, phone, username, password });
-      const enrollment = CRS.sp_EnrollStudent(student.studentId, sectionId, new Date().toISOString().slice(0, 10), 'Active');
+            const { student } = await CRS.registerUser({ firstName, lastName, email, phone, username, password });
       await CRS.loginUser(username, password);
 
-      showConfirmation(student, enrollment);
+      let enrollment = null;
+      let enrollmentError = '';
+      try {
+        enrollment = CRS.sp_EnrollStudent(student.studentId, sectionId, new Date().toISOString().slice(0, 10), 'Active');
+      } catch (err) {
+        enrollmentError = err.message;
+      }
+
+      showConfirmation(student, enrollment, enrollmentError);
       form.reset();
       form.classList.remove('was-validated');
       CRSNav.render();
