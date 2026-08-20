@@ -41,18 +41,20 @@
       : '<tr><td colspan="6" class="text-muted">No enrollments match this search.</td></tr>';
   }
 
-  function renderStudents() {
-    document.getElementById('studentsBody').innerHTML = students.map(student => {
-      const average = CRS.fn_GetStudentAverage(student.studentId);
-      return `
-        <tr>
-          <td>${student.studentId}</td>
-          <td>${student.firstName} ${student.lastName}</td>
-          <td>${student.email}</td>
-          <td>${CRS.fn_GetCompletedCredits(student.studentId)}</td>
-          <td>${average > 0 ? average : '—'}</td>
-        </tr>`;
-    }).join('');
+    function renderStudents(rows) {
+    document.getElementById('studentsBody').innerHTML = rows.length
+      ? rows.map(student => {
+          const average = CRS.fn_GetStudentAverage(student.studentId);
+          return `
+            <tr>
+              <td>${student.studentId}</td>
+              <td>${student.firstName} ${student.lastName}</td>
+              <td>${student.email}</td>
+              <td>${CRS.fn_GetCompletedCredits(student.studentId)}</td>
+              <td>${average > 0 ? average : '—'}</td>
+            </tr>`;
+        }).join('')
+      : '<tr><td colspan="5" class="text-muted">No students match this search.</td></tr>';
   }
 
   function renderCourses() {
@@ -80,6 +82,12 @@
       row.courseCode.toLowerCase().includes(term) ||
       row.courseName.toLowerCase().includes(term)
     ));
+  });
+
+    const studentSearch = document.getElementById('studentSearch');
+  studentSearch.addEventListener('input', () => {
+    const term = studentSearch.value.trim();
+    renderStudents(term ? CRS.sp_SearchStudent(term) : students);
   });
 
   function downloadFile(fileName, content, mimeType) {
@@ -111,6 +119,6 @@
 
   renderStats();
   renderEnrollments(enrollments);
-  renderStudents();
+    renderStudents(students);
   renderCourses();
 })();
