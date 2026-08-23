@@ -179,7 +179,7 @@
         .filter(e => e.studentId === studentId && e.status === 'Completed' && e.grade >= 60)
         .map(e => db.sections.find(s => s.sectionId === e.sectionId).courseId);
       if (requiredPrereqs.some(pid => !completedCourseIds.includes(pid))) {
-        throw new Error('Student has not completed required prerequisites.');
+          throw new Error('You have not completed the prerequisites required for this course.');
       }
     }
 
