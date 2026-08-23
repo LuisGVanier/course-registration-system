@@ -1,0 +1,112 @@
+/* Course Registration System - shared styles */
+
+:root {
+  --color-bg: #F6F7F3;
+  --color-surface: #FFFFFF;
+  --color-ink: #1E2A22;
+  --color-muted: #5B6259;
+  --color-border: #DCE1D6;
+  --color-brand: #2F5233;
+  --color-brand-dark: #1F3A22;
+  --color-accent: #B9822E;
+  --color-danger: #9C3B3B;
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar-brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+a { color: var(--color-brand); }
+a:hover { color: var(--color-brand-dark); }
+
+.navbar {
+  background-color: var(--color-brand) !important;
+  border-bottom: 3px solid var(--color-accent);
+}
+.navbar-brand, .nav-link {
+  color: #FFFFFF !important;
+}
+.nav-link:hover { color: var(--color-accent) !important; }
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+.card-title { font-family: var(--font-display); }
+.card-subtitle { color: var(--color-muted) !important; }
+
+.btn-primary {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+.btn-primary:hover {
+  background-color: var(--color-brand-dark);
+  border-color: var(--color-brand-dark);
+}
+
+.btn-outline-primary {
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+.btn-outline-primary:hover {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 0.2rem rgba(47, 82, 51, 0.15);
+}
+
+.text-muted { color: var(--color-muted) !important; }
+
+.course-code {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background-color: var(--color-brand);
+  color: #FFFFFF;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+}
+
+.badge-status-completed { background-color: var(--color-brand); }
+.badge-status-active { background-color: var(--color-accent); }
+.badge-status-failed { background-color: var(--color-danger); }
+.nav-link.active {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+}
+
+.nav-user {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.875rem;
+  padding: 0.5rem;
+}
+
+.nav-tabs .nav-link {
+  color: var(--color-muted) !important;
+}
+.nav-tabs .nav-link.active {
+  color: var(--color-brand) !important;
+  border-bottom-color: var(--color-surface);
+}
+
+.badge-status-dropped { background-color: var(--color-muted); }
